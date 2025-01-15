@@ -20,9 +20,11 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Change to homework
-      run: cd homework
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: |
+        cd homework 
+        chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: |
+        cd homework
+        ./gradlew build
