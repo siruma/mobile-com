@@ -95,7 +95,7 @@ jobs:
     - name: Run Detekt
       continue-on-error: true
       run: |
-        detekt --input $WORKSPACE --report sarif:$WORKSPACE/detekt.sarif.json
+        detekt --input $WORKSPACE --report sarif:${{ github.workspace }}/detekt.sarif.json
 
     # Modifies the SARIF output produced by Detekt so that absolute URIs are relative
     # This is so we can easily map results onto their source files
@@ -107,12 +107,12 @@ jobs:
           jq \
             --arg github_workspace $WORKSPACE \
             '. | ( .runs[].results[].locations[].physicalLocation.artifactLocation.uri |= if test($github_workspace) then .[($github_workspace | length | . + 1):] else . end )' \
-            $WORKSPACE/detekt.sarif.json
-        )" > $WORKSPACE/detekt.sarif.json
+            ${{ github.workspace }}/detekt.sarif.json
+        )" > ${{ github.workspace }}/detekt.sarif.json
 
     # Uploads results to GitHub repository using the upload-sarif action
     - uses: github/codeql-action/upload-sarif@v3
       with:
         # Path to SARIF file relative to the root of the repository
-        sarif_file: $WORKSPACE/detekt.sarif.json
-        checkout_path: $WORKSPACE
+        sarif_file: ${{ github.workspace }}/detekt.sarif.json
+        checkout_path: ${{ github.workspace }}
