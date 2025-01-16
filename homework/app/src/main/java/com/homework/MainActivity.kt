@@ -65,7 +65,10 @@ fun Greeting(msg: String) {
       .padding(all = 10.dp)
       .padding(top = 30.dp)
   ) {
-    Column { Text(text = msg) }
+    Column { Text(
+      text = msg,
+      color = MaterialTheme.colorScheme.secondary,
+      style = MaterialTheme.typography.titleMedium) }
   }
 }
 
@@ -120,36 +123,11 @@ fun MessageCard(msg: Message) {
   }
 }
 
-@Preview(name = "Light Mode")
-@Preview(
-  uiMode = Configuration.UI_MODE_NIGHT_YES,
-  showBackground = true,
-  name = "Dark Mode"
-)
-@Composable
-fun PreviewMessageCard() {
-  HomeworkTheme {
-    Surface {
-      MessageCard(
-        Message("Android", "Welcome to Mobile Computing")
-      )
-    }
-  }
-}
-
 @Composable
 fun Conversation(messages: List<Message>) {
   LazyColumn {
     items(messages) { message ->
       MessageCard(message)
     }
-  }
-}
-
-@Preview
-@Composable
-fun PreviewConversion() {
-  HomeworkTheme {
-    Conversation(SampleData.conversationSample)
   }
 }
