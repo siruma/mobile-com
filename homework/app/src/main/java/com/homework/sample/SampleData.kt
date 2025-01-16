@@ -20,13 +20,19 @@ object SampleData {
       "Maki", "We’ll focus on Android Studio and Kotlin."
     ),
     Message(
-      "Maki", "Mobile app development involves several stages:\n- Designing the user interface\n- Writing the code\n- Testing the app\n- Publishing it to app stores"
+      "Maki",
+      "Mobile app development involves several stages:\n- Designing the user interface\n" +
+          "- Writing the code\n- Testing the app\n- Publishing it to app stores"
     ),
     Message(
-      "Sora", "That’s a lot of steps! Can we explore them one by one?\nI’d like to understand the design phase better first."
+      "Sora",
+      "That’s a lot of steps! Can we explore them one by one?\n" +
+          "I’d like to understand the design phase better first."
     ),
     Message(
-      "Maki", "Of course! Design is crucial as it sets the tone for the user experience.\nWe’ll start with wireframes and prototypes before diving into actual development."
+      "Maki",
+      "Of course! Design is crucial as it sets the tone for the user experience.\n" +
+          "We’ll start with wireframes and prototypes before diving into actual development."
     )
   )
 }
