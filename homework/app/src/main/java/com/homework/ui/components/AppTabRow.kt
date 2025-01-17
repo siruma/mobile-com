@@ -65,16 +65,16 @@ private fun AppTab(
   selected: Boolean
 ) {
   val color = MaterialTheme.colorScheme.primary
-  val durationMillis = if (selected) TabFadeInDuration else TabFadeOutDuration
+  val durationMillis = if (selected) TAB_FADE_IN_DURATION else TAB_FADE_OUT_DURATION
   val animSpec = remember {
     tween<Color>(
       durationMillis = durationMillis,
       easing = LinearEasing,
-      delayMillis = TabFadeInDelay
+      delayMillis = TAB_FADE_IN_DELAY
     )
   }
   val tabTintColor by animateColorAsState(
-    targetValue = if (selected) color else color.copy(alpha = InactiveTapIcon),
+    targetValue = if (selected) color else color.copy(alpha = INACTIVE_TAP_ICON),
     animationSpec = animSpec
   )
 
@@ -110,7 +110,7 @@ private fun AppTab(
 
 private val TabHeight = 56.dp
 
-private const val InactiveTapIcon = 0.06f
-private const val TabFadeInDuration = 150
-private const val TabFadeOutDuration = 100
-private const val TabFadeInDelay = 100
+private const val INACTIVE_TAP_ICON = 0.06f
+private const val TAB_FADE_IN_DURATION = 150
+private const val TAB_FADE_OUT_DURATION = 100
+private const val TAB_FADE_IN_DELAY = 100
