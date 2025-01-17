@@ -1,6 +1,6 @@
 package com.homework.sample
 
-import com.homework.Message
+import com.homework.data.Message
 
 object SampleData {
   val conversationSample = listOf(
