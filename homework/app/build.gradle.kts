@@ -3,6 +3,9 @@ plugins {
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
   kotlin("plugin.serialization") version "2.0.21"
+
+  id("com.google.dagger.hilt.android")
+  id("com.google.devtools.ksp")
 }
 
 android {
@@ -17,6 +20,12 @@ android {
     versionName = "1.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments["room.incremental"] = "true"
+      }
+    }
   }
 
   buildTypes {
@@ -45,6 +54,7 @@ dependencies {
   // Implementations
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
+  implementation(libs.androidx.activity)
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.androidx.ui)
@@ -56,9 +66,21 @@ dependencies {
   implementation(libs.androidx.navigation.fragment)
   implementation(libs.androidx.navigation.ui)
   implementation(libs.androidx.navigation.dynamic.features.fragment)
+  implementation(libs.androidx.room.runtime)
+  implementation(libs.androidx.room.ktx)
+  implementation(libs.coil.compose)
+  implementation(libs.javax.inject)
+
+  // Hilt
+  implementation(libs.hilt.android)
+  implementation(libs.androidx.hilt.navigation.compose)
+  ksp(libs.hilt.compiler)
+
+  ksp(libs.androidx.room.compiler)
 
   // Testing Implementation
   testImplementation(libs.junit)
+  testImplementation(libs.androidx.room.testing)
   androidTestImplementation(libs.androidx.navigation.testing)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
@@ -71,4 +93,11 @@ dependencies {
 
   // JSON serialization library
   implementation(libs.kotlinx.serialization.json)
+
+  // For local unit tests
+  testImplementation(libs.hilt.android.testing)
+  kspTest(libs.hilt.compiler)
+  // AndroidX Test - Hilt testing
+  androidTestImplementation(libs.hilt.android.testing)
+  kspAndroidTest(libs.hilt.compiler)
 }
