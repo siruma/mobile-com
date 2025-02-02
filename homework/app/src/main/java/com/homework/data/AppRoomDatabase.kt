@@ -21,6 +21,9 @@ abstract class AppRoomDatabase : RoomDatabase() {
     @Volatile
     private var INSTANCE: AppRoomDatabase? = null
 
+    /**
+     * Initialize Database.
+     */
     fun getDatabase(
       context: Context,
       scope: CoroutineScope
@@ -54,6 +57,12 @@ abstract class AppRoomDatabase : RoomDatabase() {
         }
       }
     }
+
+    /**
+     * Populate database with dummy data.
+     *
+     * @param appDao App Data Access Object
+     */
     suspend fun populateDatabase(appDao: AppDao) {
       var user = AppUser(0, "Maki","maki@japan.game", "")
       appDao.insertUser(user)

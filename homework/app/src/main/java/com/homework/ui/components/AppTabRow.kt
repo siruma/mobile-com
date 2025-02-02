@@ -32,6 +32,13 @@ import androidx.compose.ui.unit.dp
 import com.homework.AppDestination
 import java.util.Locale
 
+/**
+ * App tab row.
+ *
+ * @param allScreens List of app destinations
+ * @param onTabSelected Changing the screen
+ * @param currentScreen Current app destination
+ */
 @Composable
 fun AppTabRow(
   allScreens: List<AppDestination>,

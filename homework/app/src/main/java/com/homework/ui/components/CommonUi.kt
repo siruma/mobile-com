@@ -31,6 +31,11 @@ import com.homework.R
 
 /**
  * Common account information box.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param name User name
+ * @param email User email
+ * @param profilePictureUrl User profile picture URL
  */
 @Composable
 fun AccountBox(

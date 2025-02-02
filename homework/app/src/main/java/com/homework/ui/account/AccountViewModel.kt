@@ -1,16 +1,14 @@
 package com.homework.ui.account
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.homework.AppDestinationsArgs
 import com.homework.R
 import com.homework.data.AppRepository
 import com.homework.model.AppUser
+import com.homework.ui.account.exceptions.MissingUserIdException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -47,24 +45,44 @@ class AccountViewModel @Inject constructor(
     }
   }
 
+  /**
+   * Update user name.
+   *
+   * @param newName New user name
+   */
   fun updateName(newName: String) {
     _accountState.update {
       it.copy(username = newName)
     }
   }
 
+  /**
+   * Update Email.
+   *
+   * @param newEmail New user email
+   */
   fun updateEmail(newEmail: String) {
     _accountState.update {
       it.copy(userEmail = newEmail)
     }
   }
 
+  /**
+   * Update user profile picture URL.
+   *
+   * @param newUrl New picture URL
+   */
   fun updatePicUrl(newUrl: String) {
     _accountState.update {
       it.copy(userPicUrl = newUrl)
     }
   }
 
+  /**
+   * Load the user by user ID.
+   *
+   * @param accountId User ID
+   */
   fun loadAccount(accountId: Int) {
     _accountState.update {
       it.copy(isLoading = true)
@@ -91,9 +109,12 @@ class AccountViewModel @Inject constructor(
     }
   }
 
+  /**
+   * Save the user information.
+   */
   fun saveAccount() {
     if (accountState.value.userId == null) {
-      throw RuntimeException("SaveAccount() was called but no user ID was given.")
+      throw MissingUserIdException("SaveAccount() was called but no user ID was given.")
     }
     if (accountState.value.username.isEmpty()) {
       _accountState.update {

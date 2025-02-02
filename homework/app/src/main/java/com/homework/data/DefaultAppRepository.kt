@@ -12,6 +12,13 @@ import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Default app repository. Single entry point for managing App data.
+ *
+ * @param appDao The app Data access object
+ * @param dispatcher The dispatcher to be used for long running or complex operations, such as ID generation.
+ * @param scope  The coroutine scope used for deferred jobs where the result isn't important
+ */
 @Singleton
 class DefaultAppRepository @Inject constructor(
   private val appDao: AppDao,

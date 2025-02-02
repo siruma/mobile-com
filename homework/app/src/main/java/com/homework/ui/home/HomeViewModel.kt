@@ -6,9 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.homework.AppDestination
 import com.homework.AppDestinationsArgs
-import com.homework.R
 import com.homework.data.AppRepository
 import com.homework.model.AppMessage
 import com.homework.model.AppUser
@@ -47,6 +45,11 @@ class HomeViewModel @Inject constructor(
     }
   }
 
+  /**
+   * Load the main user.
+   *
+   * @param accountId User ID
+   */
   fun loadAccount(accountId: Int) {
     _uiState.update {
       it.copy(isLoading = true)

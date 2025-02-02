@@ -40,8 +40,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.homework.R
 import com.homework.model.AppMessage
@@ -111,6 +109,9 @@ fun HomeScreen(
 
 }
 
+/**
+ * Add Greeting text.
+ */
 @Composable
 private fun Greeting(name: String = "User") {
   Row(
@@ -127,6 +128,12 @@ private fun Greeting(name: String = "User") {
   }
 }
 
+/**
+ * Conversation iterator.
+ *
+ * @param messages List of app messages
+ * @param users List of app users
+ */
 @Composable
 private fun Conversation(messages: List<AppMessage>, users: List<AppUser>) {
   LazyColumn {
@@ -137,6 +144,12 @@ private fun Conversation(messages: List<AppMessage>, users: List<AppUser>) {
   }
 }
 
+/**
+ * Message card.
+ *
+ * @param msg message
+ * @param user App user
+ */
 @Composable
 private fun MessageCard(msg: AppMessage, user: AppUser) {
   Row(
@@ -181,6 +194,9 @@ private fun MessageCard(msg: AppMessage, user: AppUser) {
   }
 }
 
+/**
+ * Draw the profile picture.
+ */
 @Composable
 private fun ProfilePicture(imgUrl: String) {
   val context = LocalContext.current

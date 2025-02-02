@@ -14,8 +14,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 /**
  * Settings screen function.
- *
  * Add app settings
+ *
+ * @param accountId User ID
+ * @param viewModel SettingsViewModel
  */
 @Composable
 fun SettingsScreen(
@@ -31,6 +33,9 @@ fun SettingsScreen(
   }
 }
 
+/**
+ * Add setting greeting.
+ */
 @Composable
 private fun Greeting() {
   Row(
