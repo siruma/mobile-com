@@ -45,6 +45,11 @@ fun AccountBox(
   profilePictureUrl: String
 ) {
   val context = LocalContext.current
+  val imageModifier = Modifier
+    .size(180.dp)
+    .clip(CircleShape)
+    .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+
   Box(
     modifier = Modifier.fillMaxSize(),
     contentAlignment = Alignment.TopCenter
@@ -58,21 +63,16 @@ fun AccountBox(
             ImageRequest.Builder(context)
               .data(Uri.parse(profilePictureUrl))
               .error(R.drawable.dalle_2025_01_15__japan_game)
-              .build()),
+              .build()
+          ),
           contentDescription = "Profile picture",
-          modifier = Modifier
-            .size(180.dp)
-            .clip(CircleShape)
-            .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+          modifier = imageModifier
         )
       } else {
         Image(
           painter = painterResource(R.drawable.dalle_2025_01_15__japan_game),
           contentDescription = "Profile picture",
-          modifier = Modifier
-            .size(180.dp)
-            .clip(CircleShape)
-            .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+          modifier = imageModifier
         )
       }
       Spacer(modifier = Modifier.height(8.dp))
