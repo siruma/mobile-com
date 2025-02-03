@@ -52,7 +52,7 @@ class DefaultAppRepository @Inject constructor(
   }
 
   override suspend fun deleteAppUsers() {
-    appDao.deleteAll()
+    appDao.deleteAllUser()
   }
 
   override suspend fun deleteAppUser(userId: Int) {

@@ -59,7 +59,7 @@ interface AppDao {
    * Delete all users.
    */
   @Query("DELETE FROM app_users")
-  suspend fun deleteAll()
+  suspend fun deleteAllUser()
 
   /**
    * Getter for all messages.
@@ -77,4 +77,10 @@ interface AppDao {
    */
   @Insert(onConflict = OnConflictStrategy.IGNORE)
   suspend fun insertMessage(appMessage: AppMessage)
+
+  /**
+   * Delete all messages.
+   */
+  @Query("DELETE FROM app_messages")
+  suspend fun deleteAllMessages()
 }
