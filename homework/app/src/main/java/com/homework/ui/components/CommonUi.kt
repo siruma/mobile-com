@@ -1,5 +1,6 @@
 package com.homework.ui.components
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -21,19 +22,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import com.homework.R
 
 /**
  * Common account information box.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param name User name
+ * @param email User email
+ * @param profilePictureUrl User profile picture URL
  */
 @Composable
 fun AccountBox(
   modifier: Modifier = Modifier,
   name: String,
   email: String,
-  profilePicture: Int
+  profilePictureUrl: String
 ) {
+  val context = LocalContext.current
+  val imageModifier = Modifier
+    .size(180.dp)
+    .clip(CircleShape)
+    .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+
   Box(
     modifier = Modifier.fillMaxSize(),
     contentAlignment = Alignment.TopCenter
@@ -41,21 +57,31 @@ fun AccountBox(
     Column(
       modifier = modifier
     ) {
-      Image(
-        painter = painterResource(profilePicture),
-        contentDescription = "Profile picture",
-        modifier = Modifier
-          .size(180.dp)
-          .clip(CircleShape)
-          .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
-      )
+      if (profilePictureUrl.isNotEmpty()) {
+        Image(
+          painter = rememberAsyncImagePainter(
+            ImageRequest.Builder(context)
+              .data(Uri.parse(profilePictureUrl))
+              .error(R.drawable.dalle_2025_01_15__japan_game)
+              .build()
+          ),
+          contentDescription = "Profile picture",
+          modifier = imageModifier
+        )
+      } else {
+        Image(
+          painter = painterResource(R.drawable.dalle_2025_01_15__japan_game),
+          contentDescription = "Profile picture",
+          modifier = imageModifier
+        )
+      }
       Spacer(modifier = Modifier.height(8.dp))
-
       Column {
         Row {
           Icon(
             imageVector = Icons.Filled.Person,
-            contentDescription = "name")
+            contentDescription = "name"
+          )
           Spacer(Modifier.width(12.dp))
           Text(
             text = name,
@@ -66,7 +92,8 @@ fun AccountBox(
         Row {
           Icon(
             imageVector = Icons.Filled.Email,
-            contentDescription = "email")
+            contentDescription = "email"
+          )
           Spacer(Modifier.width(12.dp))
           Text(
             text = email,

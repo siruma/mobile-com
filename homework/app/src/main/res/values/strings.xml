@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Homework</string>
+    <string name="empty_account_picture">Account picture cannot be empty.</string>
+    <string name="empty_account_name">Account name cannot be empty.</string>
+    <string name="no_user_found">NO USER FOUND</string>
 </resources>
