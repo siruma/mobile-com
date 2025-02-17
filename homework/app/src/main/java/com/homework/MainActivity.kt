@@ -1,8 +1,14 @@
 package com.homework
 
+import android.content.ComponentName
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -26,11 +32,43 @@ class MainActivity : ComponentActivity() {
 
   private val accountId = 0
 
+  private var foregroundSensorService: ForegroundSensorService? = null
+  private var foregroundOnlyServiceBound = false
+
+  private var foregroundOnlyServiceConnection = object : ServiceConnection {
+    override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+      val binder = p1 as ForegroundSensorService.LocalBinder
+      foregroundSensorService = binder.sensorDataService
+      foregroundOnlyServiceBound = true
+      foregroundSensorService?.startSensorDataService()
+    }
+
+    override fun onServiceDisconnected(p0: ComponentName?) {
+      foregroundSensorService = null
+      foregroundOnlyServiceBound = false
+    }
+  }
+
+  override fun onStart() {
+    super.onStart()
+
+    val serviceIntent = Intent(this, ForegroundSensorService::class.java)
+    bindService(serviceIntent, foregroundOnlyServiceConnection, BIND_AUTO_CREATE)
+  }
+
+  override fun onStop() {
+    if (foregroundOnlyServiceBound) {
+      unbindService(foregroundOnlyServiceConnection)
+      foregroundOnlyServiceBound = false
+    }
+    super.onStop()
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     setContent {
       MainApp()
-
     }
   }
 
@@ -73,6 +111,9 @@ class MainActivity : ComponentActivity() {
         }
       }
     }
+  }
+  companion object {
+    private const val TAG = "MainActivity()"
   }
 }
 

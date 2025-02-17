@@ -24,4 +24,8 @@ class SettingsViewModel @Inject constructor(
 
   private val _uiState = MutableStateFlow(SettingsUiState())
   val uiState : StateFlow<SettingsUiState> = _uiState.asStateFlow()
+
+  companion object {
+    private const val TAG = "SettingsViewModel()"
+  }
 }

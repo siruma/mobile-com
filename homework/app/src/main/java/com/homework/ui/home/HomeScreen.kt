@@ -223,4 +223,4 @@ private fun ProfilePicture(imgUrl: String) {
   }
 }
 
-const val TAG = "HomeScreen"
+private const val TAG = "HomeScreen"

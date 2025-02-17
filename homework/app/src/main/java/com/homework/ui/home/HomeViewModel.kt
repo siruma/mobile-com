@@ -29,7 +29,7 @@ data class HomeUiState(
 class HomeViewModel @Inject constructor(
   private val appRepository: AppRepository,
   savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
 
   private val userId: Int? = savedStateHandle[AppDestinationsArgs.ACCOUNT_ID_ARG]
 
@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(
   val allAppUser: LiveData<List<AppUser>> = appRepository.allUser.asLiveData()
 
   private val _uiState = MutableStateFlow(HomeUiState())
-  val uiState : StateFlow<HomeUiState> = _uiState.asStateFlow()
+  val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
   init {
     if (userId != null) {
@@ -73,5 +73,9 @@ class HomeViewModel @Inject constructor(
         }
       }
     }
+  }
+
+  companion object {
+    private const val TAG = "HomeViewModel()"
   }
 }

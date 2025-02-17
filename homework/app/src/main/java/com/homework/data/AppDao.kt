@@ -64,10 +64,19 @@ interface AppDao {
   /**
    * Getter for all messages.
    *
-   * @return List of app messages
+   * @return Flow List of app messages
    */
   @Query("SELECT * FROM app_messages ORDER BY message_time_stamp")
   fun getMessages(): Flow<List<AppMessage>>
+
+  /**
+   * Load all messages.
+   *
+   * @param chatId Chat ID
+   * @return List of app messages
+   */
+  @Query("SELECT * FROM app_messages where chat_id = :chatId ORDER BY message_time_stamp")
+  suspend fun loadAllMessages(chatId: Int): List<AppMessage>
 
   /**
    * Add new message.
