@@ -103,7 +103,7 @@ class NotificationWorker @Inject constructor(@ApplicationContext context: Contex
     }
 
     val pendingIntent = PendingIntent.getActivity(appContext, REQUEST_CONTENT, intent,
-      NotificationHandler.flagUpdateCurrent(false))
+      PendingIntent.FLAG_IMMUTABLE or NotificationHandler.flagUpdateCurrent(false))
 
       return NotificationCompat.Builder(appContext, NotificationHandler.CHANNEL_MESSAGES)
         .setContentTitle(contact.username)

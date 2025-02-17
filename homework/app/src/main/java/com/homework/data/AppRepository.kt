@@ -13,7 +13,7 @@ interface AppRepository {
 
   val gyroSensorDataFlow: Flow<IntArray>
 
-  val stepCounterSensorDataFlow: Flow<Int>
+  val lightSensorDataFlow: Flow<Int>
 
   /**
    * All app users.
@@ -66,14 +66,37 @@ interface AppRepository {
    */
   suspend fun updateNotification(chatId: Int = 1)
 
+  /**
+   * Update Notification
+   *
+   * @param chatId Chat ID
+   * @param body Message body
+   * @param timeStamp Message time stamp
+   */
   suspend fun updateNotification(chatId: Int = 1, body:String, timeStamp: Long)
 
+  /**
+   * Setter for sensor time stamp.
+   *
+   * @param timeStamp Long value of time
+   */
   suspend fun setSensorTimeStamp(timeStamp: Long)
 
+  /**
+   * Setter for gyro rate,
+   *
+   * @param intArray gyro rate array
+   */
   suspend fun setGyroRate(intArray: IntArray)
 
+  /**
+   * Setter for active sensor data service.
+   */
   suspend fun setActiveSensorDataService(b: Boolean)
 
-  suspend fun setSteps(steps: Int)
+  /**
+   * Setter for light sensor data.
+   */
+  suspend fun setLightValue(steps: Int)
 
 }

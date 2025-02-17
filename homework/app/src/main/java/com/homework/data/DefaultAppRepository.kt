@@ -63,9 +63,9 @@ class DefaultAppRepository @Inject constructor(
         )
     }
 
-  override val stepCounterSensorDataFlow: Flow<Int>
+  override val lightSensorDataFlow: Flow<Int>
     get() = context.dataStore.data.map {
-      it[STEP_COUNTER] ?: 0
+      it[LIGHT_SENSOR] ?: 0
     }
 
   override val allUser : Flow<List<AppUser>> = appDao.getUsers()
@@ -148,9 +148,9 @@ class DefaultAppRepository @Inject constructor(
     }
   }
 
-  override suspend fun setSteps(steps: Int) {
+  override suspend fun setLightValue(lux: Int) {
     context.dataStore.edit {
-      it[STEP_COUNTER] = steps
+      it[LIGHT_SENSOR] = lux
     }
   }
 
@@ -166,7 +166,7 @@ class DefaultAppRepository @Inject constructor(
     private val GYRO_X_KEY = intPreferencesKey("gyro_x")
     private val GYRO_Y_KEY = intPreferencesKey("gyro_y")
     private val GYRO_Z_KEY = intPreferencesKey("gyro_z")
-    private val STEP_COUNTER = intPreferencesKey("step_counter")
+    private val LIGHT_SENSOR = intPreferencesKey("light_sensor")
 
   }
 }

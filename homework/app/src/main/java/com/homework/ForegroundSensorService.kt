@@ -117,7 +117,7 @@ class ForegroundSensorService: LifecycleService() {
       }
       lightSensor.let {
         intArray = it.getMeasurementRate()
-        appRepository.setSteps(intArray[0])
+        appRepository.setLightValue(intArray[0])
       }
       val timeStamp = Date().time
       appRepository.setSensorTimeStamp(timeStamp)
