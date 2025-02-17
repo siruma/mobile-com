@@ -54,6 +54,7 @@ dependencies {
   // Implementations
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
+  implementation(libs.androidx.lifecycle.service)
   implementation(libs.androidx.activity)
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))
@@ -70,9 +71,14 @@ dependencies {
   implementation(libs.androidx.room.ktx)
   implementation(libs.coil.compose)
   implementation(libs.javax.inject)
+  implementation(libs.androidx.work.runtime)
+
+  // DataStore used to save simple data.
+  implementation(libs.androidx.datastore.preferences)
 
   // Hilt
   implementation(libs.hilt.android)
+  implementation(libs.androidx.hilt.work)
   implementation(libs.androidx.hilt.navigation.compose)
   ksp(libs.hilt.compiler)
 

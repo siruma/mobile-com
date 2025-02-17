@@ -3,4 +3,8 @@
     <string name="empty_account_picture">Account picture cannot be empty.</string>
     <string name="empty_account_name">Account name cannot be empty.</string>
     <string name="no_user_found">NO USER FOUND</string>
+    <string name="channel_new_message">New message</string>
+    <string name="remote_input_label">Type message</string>
+    <string name="rebly_label">Reply</string>
+    <string name="sender_you">You</string>
 </resources>

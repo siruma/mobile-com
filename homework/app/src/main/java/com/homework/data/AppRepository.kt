@@ -9,6 +9,12 @@ import kotlinx.coroutines.flow.Flow
  */
 interface AppRepository {
 
+  val activeSensorDataFlow: Flow<Boolean>
+
+  val gyroSensorDataFlow: Flow<IntArray>
+
+  val stepCounterSensorDataFlow: Flow<Int>
+
   /**
    * All app users.
    */
@@ -52,5 +58,22 @@ interface AppRepository {
    * @param userId App user ID
    */
   suspend fun deleteAppUser(userId: Int)
+
+  /**
+   * Update notifications.
+   *
+   * @param chatId Chat ID
+   */
+  suspend fun updateNotification(chatId: Int = 1)
+
+  suspend fun updateNotification(chatId: Int = 1, body:String, timeStamp: Long)
+
+  suspend fun setSensorTimeStamp(timeStamp: Long)
+
+  suspend fun setGyroRate(intArray: IntArray)
+
+  suspend fun setActiveSensorDataService(b: Boolean)
+
+  suspend fun setSteps(steps: Int)
 
 }

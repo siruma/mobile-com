@@ -182,5 +182,5 @@ private fun saveProfilePicture(context: Context, uri: Uri): String {
   return destinationFile.path
 }
 
-const val TAG = "AccountScreen"
+private const val TAG = "AccountScreen"
 const val BUFFER_SIZE = 1024
