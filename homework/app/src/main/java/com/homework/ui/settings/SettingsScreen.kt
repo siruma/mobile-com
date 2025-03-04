@@ -56,7 +56,7 @@ private fun Greeting() {
       }) {
         Text(
           text = "Enable notifications",
-          color = MaterialTheme.colorScheme.secondary,
+          color = MaterialTheme.colorScheme.inversePrimary,
           style = MaterialTheme.typography.titleMedium
         )
       }

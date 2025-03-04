@@ -1,0 +1,12 @@
+query GetMaintenanceVehicleObservations($begin: GraphQLDateTime) {
+    maintenanceVehicleObservations(contractId:1261,begin: $begin) {
+        vehicleNumber
+        vehicleType
+        timestamp
+        contractId
+        direction
+        jobIds
+        lat
+        lon
+    }
+}
