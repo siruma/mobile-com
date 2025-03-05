@@ -1,0 +1,12 @@
+query GetMaintenanceVehicleRouteEvents($begin: GraphQLDateTime) {
+    maintenanceVehicleRouteEvents(routeType:NON_MOTORISED,begin: $begin) {
+        id
+        routeEventId
+        routeType
+        measuredTime
+        contractId
+        jobIds
+        geometryId
+        geojson
+    }
+}

@@ -53,7 +53,7 @@ fun AccountScreen(
   accountId: Int
 ) {
 
-  val edintingName = remember { mutableStateOf(false) }
+  val editingName = remember { mutableStateOf(false) }
   val context = LocalContext.current
   val pickPic = rememberLauncherForActivityResult(PickVisualMedia()) { image ->
     if (image != null) {
@@ -81,7 +81,7 @@ fun AccountScreen(
       contentAlignment = Alignment.Center
     ) {
       Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        if (edintingName.value) {
+        if (editingName.value) {
           Box(
             modifier = Modifier.size(200.dp, 100.dp)
           ) {
@@ -91,14 +91,14 @@ fun AccountScreen(
             )
           }
         }
-        Button(onClick = { edintingName.value = !edintingName.value }) {
-          if (edintingName.value) {
+        Button(onClick = { editingName.value = !editingName.value }) {
+          if (editingName.value) {
             Text("OK")
           } else {
             Text("Change User name")
           }
         }
-        if (!edintingName.value) {
+        if (!editingName.value) {
           Button(onClick = { pickPic.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly)) }) {
             Text("Change picture")
           }

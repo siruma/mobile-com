@@ -2,8 +2,9 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.apollo)
+  id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
   kotlin("plugin.serialization") version "2.0.21"
-
   id("com.google.dagger.hilt.android")
   id("com.google.devtools.ksp")
 }
@@ -49,6 +50,7 @@ android {
   }
 }
 
+
 dependencies {
 
   // Implementations
@@ -73,6 +75,17 @@ dependencies {
   implementation(libs.javax.inject)
   implementation(libs.androidx.work.runtime)
 
+  //CameraX
+  implementation(libs.androidx.camera.core)
+  implementation(libs.androidx.camera.camera2)
+  implementation(libs.androidx.camera.lifecycle)
+  implementation(libs.androidx.camera.video)
+  implementation(libs.androidx.camera.view)
+  implementation(libs.androidx.camera.extensions)
+
+  //Apollo
+  implementation(libs.apollo.runtime)
+
   // DataStore used to save simple data.
   implementation(libs.androidx.datastore.preferences)
 
@@ -83,6 +96,9 @@ dependencies {
   ksp(libs.hilt.compiler)
 
   ksp(libs.androidx.room.compiler)
+
+  // Maps SDK for Android
+  implementation(libs.play.services.maps)
 
   // Testing Implementation
   testImplementation(libs.junit)
@@ -107,4 +123,29 @@ dependencies {
   // AndroidX Test - Hilt testing
   androidTestImplementation(libs.hilt.android.testing)
   kspAndroidTest(libs.hilt.compiler)
+}
+
+apollo {
+
+  service("service") {
+
+    packageName.set("com.homework")
+    introspection {
+      endpointUrl.set("https://api.oulunliikenne.fi/proxy/graphql")
+      schemaFile.set(file("src/main/graphql/schema.graphqls"))
+
+    }
+  }
+}
+
+secrets {
+  // To add your Maps API key to this project:
+  // 1. If the secrets.properties file does not exist, create it in the same folder as the local.properties file.
+  // 2. Add this line, where YOUR_API_KEY is your API key:
+  //        MAPS_API_KEY=YOUR_API_KEY
+  propertiesFileName = "secrets.properties"
+
+  // A properties file containing default secret values. This file can be
+  // checked in version control.
+  defaultPropertiesFileName = "local.defaults.properties"
 }
