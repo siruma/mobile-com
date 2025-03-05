@@ -63,25 +63,30 @@ class CameraActivity : ComponentActivity() {
         "Permission request denied",
         Toast.LENGTH_SHORT
       ).show()
+    } else {
+      startCameraView()
     }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    if (!allPermissionGranted()) {
-      requestPermission()
-    }
     if (allPermissionGranted()) {
-      setContent {
-        CameraPreview(startCamera = { previewView -> startCamera(previewView) },
-          onImageCapture = { takePhoto() },
-          onVideoCapture = { captureVideo() })
-
-      }
+      startCameraView()
+    } else {
+      requestPermission()
     }
 
     cameraExecutor = Executors.newSingleThreadExecutor()
+  }
+
+  private fun startCameraView() {
+    setContent {
+      CameraPreview(startCamera = { previewView -> startCamera(previewView) },
+        onImageCapture = { takePhoto() },
+        onVideoCapture = { captureVideo() })
+
+    }
   }
 
   private fun takePhoto() {
