@@ -80,6 +80,7 @@ fun MapViewScreen(mapState: MapUiState) {
       putExtra("vehicle", mapState.vehicle)
       putExtra("latitude", mapState.vehicleLat)
       putExtra("longitude", mapState.vehicleLon)
+      putExtra("timeStamp", mapState.timeStamp)
     }
     context.startActivity(intent)
   }) {

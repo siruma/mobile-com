@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
@@ -23,7 +24,8 @@ import javax.inject.Inject
 data class MapUiState(
   val vehicle:Int = 0,
   val vehicleLon: Double = 25.457969,
-  val vehicleLat: Double = 65.019359
+  val vehicleLat: Double = 65.019359,
+  val timeStamp: String = "2025-01-01T00:00:00"
 )
 
 @HiltViewModel
@@ -50,18 +52,25 @@ class MapViewModel @Inject constructor(
   fun getInfo() {
     viewModelScope.launch {
       val now = Date()
-      val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.UK)
-      val formattedDate = "\"${sdf.format(now)}\""
-      val optionalGraphQLDateTime = Optional.presentIfNotNull(formattedDate)
+      val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.UK)
+      val formattedEndTime = sdf.format(now)
+      val endTime = Optional.presentIfNotNull(formattedEndTime)
+
+      val calendar = Calendar.getInstance()
+      calendar.time = now
+      calendar.add(Calendar.HOUR_OF_DAY, -TWENTY_FOUR_HOURS)
+      val formattedStartTime = sdf.format(calendar.time)
+      val startTime = Optional.presentIfNotNull(formattedStartTime)
       updateTime = now.time
 
       val response = apolloClient.query(
-        GetMaintenanceVehicleObservationsQuery(optionalGraphQLDateTime)).execute()
-      val data: List<GetMaintenanceVehicleObservationsQuery.MaintenanceVehicleObservation?>? =
-        response.data?.maintenanceVehicleObservations
+        GetMaintenanceVehicleObservationsQuery(begin = startTime, end = endTime)).execute()
+      val data = response.data?.maintenanceVehicleObservations
 
       if (data.isNullOrEmpty() || data.contains(null)) {
-        Log.d(TAG, "NO DATA FROM QUERY")
+        Log.d(TAG, "NO DATA" +
+            " FROM QUERY: start: $formattedStartTime end: $formattedEndTime " +
+            "Errors: ${response.errors}")
       } else {
         try {
           val observation = data[0]
@@ -70,7 +79,8 @@ class MapViewModel @Inject constructor(
               state.copy(
                 vehicleLat = it.lat ?: state.vehicleLat,
                 vehicleLon = it.lon ?: state.vehicleLon,
-                vehicle = it.vehicleNumber
+                vehicle = it.vehicleNumber,
+                timeStamp = it.timestamp.toString()
               )
             }
           }
@@ -84,6 +94,7 @@ class MapViewModel @Inject constructor(
 
   companion object {
     private const val TEN_MINUTES_IN_MILLS: Long = 10 * 60 * 1000
+    private const val TWENTY_FOUR_HOURS = 24
     private const val TAG = "MapViewModel()"
   }
   

@@ -106,6 +106,9 @@ class MainActivity : ComponentActivity() {
           composable(route = Map.route) {
             Map.screen(accountId)
           }
+          composable(route = Camera.route) {
+            Camera.screen(accountId)
+          }
           composable(route = Settings.route) {
             Settings.screen(accountId)
           }

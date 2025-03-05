@@ -21,6 +21,7 @@ class MapViewActivity: AppCompatActivity(), OnMapReadyCallback {
   private var latitude = 0.0
   private var longitude = 0.0
   private var vehicle = 0
+  private var timeStamp = "2025-01-01T00:00:00"
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -37,6 +38,7 @@ class MapViewActivity: AppCompatActivity(), OnMapReadyCallback {
     vehicle = intent.getIntExtra("vehicle", 0)
     latitude = intent.getDoubleExtra("latitude", 0.0)
     longitude = intent.getDoubleExtra("longitude", 0.0)
+    timeStamp = intent.getStringExtra("timeStamp") ?: "2025-01-01T00:00:00"
 
   }
 
@@ -72,7 +74,7 @@ class MapViewActivity: AppCompatActivity(), OnMapReadyCallback {
 
     val markerOptions = MarkerOptions().position(
       LatLng(latitude, longitude)
-    ).title("Vehicle: $vehicle")
+    ).title("Vehicle: $vehicle TimeStamp: $timeStamp")
 
     val marker = map.addMarker(markerOptions)
     if (marker != null) {

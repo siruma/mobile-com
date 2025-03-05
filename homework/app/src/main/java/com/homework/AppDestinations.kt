@@ -2,12 +2,14 @@ package com.homework
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.homework.ui.account.AccountScreen
+import com.homework.ui.camera.CameraScreen
 import com.homework.ui.home.HomeScreen
 import com.homework.ui.map.MapScreen
 import com.homework.ui.settings.SettingsScreen
@@ -55,8 +57,18 @@ object Map : AppDestination {
   }
 }
 
+object Camera : AppDestination {
+  override val icon = Icons.Filled.Face
+  override val route = "Camera"
+  override val screen: @Composable (accountId: Int) -> Unit = { accountId ->
+    CameraScreen(
+      accountId = accountId
+    )
+  }
+}
+
 // Selections of screens to be displayed
-val appTabRowScreens = listOf(Home, Account, Map, Settings)
+val appTabRowScreens = listOf(Home, Account, Map, Camera, Settings)
 
 object AppDestinationsArgs {
   const val HOME_ARG = "home"
